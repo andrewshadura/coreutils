@@ -1,3 +1,7 @@
+2019-02-12  Andrej Shadura <andrew.shadura@collabora.co.uk>
+
+	Add cp -n support.
+
 2012-05-04  Nitin A Kamble <nitin.a.kamble@intel.com>
 
 	Remove support for automatic de-ANSI-fication.

@@ -130,6 +130,7 @@ static struct option const long_opts[] =
   {"force", no_argument, NULL, 'f'},
   {"interactive", no_argument, NULL, 'i'},
   {"link", no_argument, NULL, 'l'},
+  {"no-clobber", no_argument, NULL, 'n'},
   {"no-dereference", no_argument, NULL, 'P'},
   {"no-preserve", required_argument, NULL, NO_PRESERVE_ATTRIBUTES_OPTION},
   {"no-target-directory", no_argument, NULL, 'T'},
@@ -877,7 +878,7 @@ main (int argc, char **argv)
      we'll actually use backup_suffix_string.  */
   backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
 
-  while ((c = getopt_long (argc, argv, "abdfHilLprst:uvxPRS:T",
+  while ((c = getopt_long (argc, argv, "abdfHilLnprst:uvxPRS:T",
 			   long_opts, NULL))
 	 != -1)
     {
@@ -931,6 +932,10 @@ main (int argc, char **argv)
 
 	case 'L':
 	  x.dereference = DEREF_ALWAYS;
+	  break;
+
+	case 'n':
+	  x.interactive = I_ALWAYS_NO;
 	  break;
 
 	case 'P':
