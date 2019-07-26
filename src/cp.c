@@ -77,7 +77,8 @@ enum
   REPLY_OPTION,
   SPARSE_OPTION,
   STRIP_TRAILING_SLASHES_OPTION,
-  UNLINK_DEST_BEFORE_OPENING
+  UNLINK_DEST_BEFORE_OPENING,
+  REFLINK_OPTION
 };
 
 /* Initial number of entries in each hash table entry's table of inodes.  */
@@ -108,6 +109,16 @@ static enum Sparse_type const sparse_type[] =
   SPARSE_NEVER, SPARSE_AUTO, SPARSE_ALWAYS
 };
 ARGMATCH_VERIFY (sparse_type_string, sparse_type);
+
+static char const *const reflink_type_string[] =
+{
+  "never", "auto", "always", NULL
+};
+static enum Reflink_type const reflink_type[] =
+{
+  REFLINK_NEVER, REFLINK_AUTO, REFLINK_ALWAYS
+};
+ARGMATCH_VERIFY (reflink_type_string, reflink_type);
 
 /* Valid arguments to the `--reply' option. */
 static char const* const reply_args[] =
@@ -143,6 +154,7 @@ static struct option const long_opts[] =
   {"reply", required_argument, NULL, REPLY_OPTION}, /* Deprecated 2005-07-03,
 						       remove in 2008. */
   {"sparse", required_argument, NULL, SPARSE_OPTION},
+  {"reflink", required_argument, NULL, REFLINK_OPTION},
   {"strip-trailing-slashes", no_argument, NULL, STRIP_TRAILING_SLASHES_OPTION},
   {"suffix", required_argument, NULL, 'S'},
   {"symbolic-link", no_argument, NULL, 's'},
@@ -754,6 +766,7 @@ cp_option_init (struct cp_options *x)
   x->require_preserve = false;
   x->recursive = false;
   x->sparse_mode = SPARSE_AUTO;
+  x->reflink_mode = REFLINK_NEVER;
   x->symbolic_link = false;
   x->set_mode = false;
   x->mode = 0;
@@ -887,6 +900,16 @@ main (int argc, char **argv)
 	case SPARSE_OPTION:
 	  x.sparse_mode = XARGMATCH ("--sparse", optarg,
 				     sparse_type_string, sparse_type);
+	  break;
+
+	case REFLINK_OPTION:
+	  /* Ignore, but fail on always */
+	  x.reflink_mode = XARGMATCH ("--reflink", optarg,
+				     reflink_type_string, reflink_type);
+
+	  if (x.reflink_mode == REFLINK_ALWAYS)
+	    error (EXIT_FAILURE, 0,
+		   _("--reflink=always not implemented"));
 	  break;
 
 	case 'a':		/* Like -dpPR. */

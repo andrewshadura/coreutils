@@ -45,6 +45,14 @@ enum Sparse_type
   SPARSE_ALWAYS
 };
 
+enum Reflink_type
+{
+  /* None of these options are currently implemented */
+  REFLINK_NEVER,
+  REFLINK_AUTO,
+  REFLINK_ALWAYS
+};
+
 /* This type is used to help mv (via copy.c) distinguish these cases.  */
 enum Interactive
 {
@@ -175,6 +183,9 @@ struct cp_options
 
   /* Control creation of sparse files.  */
   enum Sparse_type sparse_mode;
+
+  /* Not implemented: reflink mode (clone/CoW copies) */
+  enum Reflink_type reflink_mode;
 
   /* If true, create symbolic links instead of copying files.
      Create destination directories as usual. */
