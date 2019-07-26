@@ -99,6 +99,7 @@ static struct option const long_options[] =
   {"reference", required_argument, NULL, 'r'},
   {"rfc-822", no_argument, NULL, 'R'},
   {"rfc-2822", no_argument, NULL, 'R'},
+  {"rfc-email", no_argument, NULL, 'R'},
   {"rfc-3339", required_argument, NULL, RFC_3339_OPTION},
   {"set", required_argument, NULL, 's'},
   {"uct", no_argument, NULL, 'u'},

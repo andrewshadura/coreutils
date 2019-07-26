@@ -1,5 +1,9 @@
 2019-07-26  Andrej Shadura <andrew.shadura@collabora.co.uk>
 
+	Accept date --rfc-email.
+
+2019-07-26  Andrej Shadura <andrew.shadura@collabora.co.uk>
+
 	Accept cp --reflink=*, but ignore it unless it is set to always.
 
 2019-02-12  Andrej Shadura <andrew.shadura@collabora.co.uk>
